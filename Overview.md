@@ -50,4 +50,33 @@ No built-in concurrency mechanism
  - Node
  - Js
 
+** In C++ && Java
+  - complex code
+  - Expensive & slow
+
+* Only GO 
+  - Designed to run on multiple cores and built to suppoort concurrency
+  - Concurrency in GO is cheap and easy
+  
+Main use case of GO
+ - For performant applications
+ - Rinning on scaled, distibuted systems
+
+
+GO LANGUAGE FEATURES
+ - Server-side or backend language
+   * Micro-services
+   * Web applications
+   * Databases services
+
+
+ - Simple syntax : Easy to learn, read and write code : Easy to maintatin over time
+
+ - Fast build time, start up and run
+ - Require fewer resources
+ - Compiled language    
+   * Compiles into single binary(machine code) that can be easliy deployed and interacted with easily by the computer
+   * Consistent across different OS
+
+#### Intro to Setup , syntax and concepts
 
