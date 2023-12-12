@@ -7,7 +7,4 @@ import "fmt";
 func intro() {
 
 	fmt.Print("Hello World");
-
-
-
 }
