@@ -5,7 +5,7 @@ import (
 	"bufio"
 )
 
-func prompt () {
+func main () {
 	fmt.Print("Enter your name: ");
 
 	// Read user input from the console
