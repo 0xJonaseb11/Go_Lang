@@ -6,7 +6,7 @@ import "fmt";
 
 func main() {
 
-	Print("Hello World");
+	fmt.Print("Hello World");
 
 
 
