@@ -1,4 +1,4 @@
-package prompt
+package main
 import (
 	"fmt"
 	"os"
