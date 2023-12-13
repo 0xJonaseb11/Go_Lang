@@ -79,4 +79,8 @@ GO LANGUAGE FEATURES
    * Consistent across different OS
 
 #### Intro to Setup , syntax and concepts
+ - imports
+ - packages
+ - add module requirements and sums
+
 
