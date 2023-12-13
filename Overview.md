@@ -78,9 +78,17 @@ GO LANGUAGE FEATURES
    * Compiles into single binary(machine code) that can be easliy deployed and interacted with easily by the computer
    * Consistent across different OS
 
+### Gettin started
+
 #### Intro to Setup , syntax and concepts
  - imports
  - packages
  - add module requirements and sums
 
 
+To get started, 
+ ```sh
+ go mod init
+ ```
+
+To add
