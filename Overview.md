@@ -125,3 +125,34 @@ go run <pakage_name>
 
 - Go has 2 floating point types. ie `float32`(single precision) and `float64`(double precision) as well as two additional types for representing complex numbers - `complex64` and `complex128`
 
+`Concurrency`
+
+_**Go has a rich support for concurrency with the use of goroutines and channels**_
+
+`Goroutines`
+
+A Goroutine is a function that is capable of running concurrently with other functions.
+_To create a goroutine, we use `go` keyword followed by a function invocation._
+
+- Goroutines are lightweight and we can easily create
+thousands of them
+
+`Channels`
+
+Channels provides a way for two goroutines to communicate with each other and synchronize their execution.
+
+_Normally channels are synchronous; both sides of the
+channel will wait until the other side is ready. A
+buffered channel is asynchronous; sending or receiving
+a message will not wait unless the channel is already
+full._
+
+`<-` is used to send and receive messages on a channel
+`chan` is a keyword used to represent channel - it is followed by the things we want to pass to the channel
+
+`c <- "ping" means send "ping"`
+
+`'msg := <- c' means receive a message and store it in 'msg'`
+
+**`select`**
+Go has a special statement `select` that works like switch but for channels

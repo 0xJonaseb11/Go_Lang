@@ -1,6 +1,11 @@
 package main
 
-import ("fmt"; "math");
+import (
+	"fmt"
+	"math"
+	"math/rand"
+	"time"
+	);
 
 func average(xs []float64) float64 {
 	// panic("Not implemented"); // built-in function to cause runtime-Error
@@ -175,12 +180,172 @@ func _circleArea(c Circle) float64 {
 	area() float64
    }
 
+   // let's implement the area logic like we did above 
+   func totalArea(shapes ...Shape) float64 {
+	var area float64
+	for _, s := range shapes {
+		area += s.area()
+	}
+	return area
+   }
+
+   // Interfaces are also used as fields
+   type MultiShape struct {
+	shapes []Shape
+   }
+
+   /*
+   We can even turn MultiShape itself into a Shape by giv-
+   ing it an area method:
+  */
+
+  func (m *MultiShape) area() float64 {
+	var area float64
+	for _, s := range m.shapes {
+		area += s.area()
+	}
+	return area
+  }
+  /*
+  Now a MultiShape can contain Circles, Rectangles or
+  even other MultiShapes.
+  */
+
+  // Concurrency
+  /*
+  * Go has rich support for concurrency with goroutines and channels
+  */
+
+  func goroutine(n int) {
+	for i := 0; i < 10; i++ {
+		fmt.Println(n, ":", i)
+		// let's add some delay
+		amt := time.Duration(rand.Intn(250));
+		time.Sleep(time.Millisecond * amt);
+	}
+  }
+
+
+  // Channels
+  // member 1
+  func pinger(ch chan string) {
+	for i := 0; ; i++ {
+		ch <- "ping"
+	}
+  }
+
+  func printer(ch chan string) {
+	for {
+		msg := <- ch
+		fmt.Println(msg) // alternatively `fmt.Println(<- c)`
+		time.Sleep(time.Second * 1)
+	}
+  }
+   // member 2
+  func ponger(ch chan string) {
+	for i := 0; ; i++ {
+		ch <- "pong"
+	}
+  }
+
+  // Channel direction
+//   in the pinger()
+func pinger_(ch chan <- string){}; // sender
+func printer_(ch <- chan string){}; // receiver
+
+// select - works like switch but for channels
+
+// Buffered channels
+/*It's also possible to pass a second parameter to the
+* make function when creating a channel:
+*/
+ch_ := make(chan int, 1);
+
+
+
+
 
 
 
 
 
 func main () {
+
+	// select statement in channels
+	c1 := make(chan string)
+	c2 := make(chan string)
+
+	// start communication
+	go func() {
+		for {
+			c1 <- "From 1"
+			time.Sleep(time.Second * 2)
+		}
+	}()
+	go func() {
+		for {
+			c2 <- "From 2"
+			time.Sleep(time.Second * 3)
+		}
+	}()
+
+	go func() {
+		for {
+			select {
+			case msg1 := <- c1 : fmt.Println(msg1)
+			case msg2 := <- c2 : fmt.Println(msg2)
+			}
+		}
+	}()
+
+	go func() {
+		for {
+			select {
+			case msg_1 := <- c1 : fmt.Println("Message 1", msg_1)
+			case msg_2 := <- c2 : fmt.Println("Message 2", msg_2)
+			case <- time.After(time.Second) : fmt.Println("Timeout",)
+			// default: fmt.Println("Nothing ready")
+			} // The default case happens immediately if none of the channels are ready.
+		}
+	}()
+
+	var _input string
+	fmt.Scanln(&_input)
+
+	/*
+	* time.After creates a channel and after the given dura-
+    * tion will send the current time on it.
+	*/
+
+	//channels
+	var ch chan string = make(chan string)
+
+	go pinger(ch)
+	go ponger(ch)
+	go printer(ch)
+
+
+	var _input_ string
+	fmt.Scanln(&_input_)
+
+
+
+	// Handle concurrency - goroutines
+	go goroutine(0)
+	var input_ string
+	fmt.Scanln(&input_);
+
+	// Let's make 10 goroutines in our program
+	for i := 0; i < 10; i++ {
+		go goroutine(i)
+	}
+	var input__ string
+	fmt.Scanln(&input__, "\n")
+
+    c_ := Circle{0, 0, 5}
+    r_ := Rectangle{0, 0, 10, 20}
+	// implement interface logic to find area as we did in previous approaches
+	fmt.Println("Used interface to find total area of circle and rectangle =>",totalArea(&c_, &r_))
 
 	// acess embedded types
 	_a := new(Android)
