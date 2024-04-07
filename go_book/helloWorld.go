@@ -110,7 +110,7 @@ var c Circle;
 // use new function to initialize too
 var c_ = new(Circle);
 // let's try to give it value
-var  _c = Circle{ x: 0, y: 0, r: 5 }
+var  _c = Circle{ x: 0, y: 0, r: 5}
 /*Or we can leave off the field names if we know the or-
 * der they were defined:
 */
@@ -135,8 +135,45 @@ func _circleArea(c Circle) float64 {
 
    // Methods
    /*
-   * We have made our program better, but why not make it best with methods
+   * We have made our program better, but why not make it best with a special function called method
    */
+
+   func (c *Circle) area() float64 { // (c *Circle) => is the receiver
+	return math.Pi * c.r*c.r
+   }
+
+   // Use method to find the area of a rectangle
+   type Rectangle struct {
+	x1, y1, x2, y2 float64
+   }
+
+   func (r * Rectangle) area() float64 {
+	l := distance(r.x1, r.y1, r.x1, r.y2)
+	w := distance(r.x1, r.y1, r.x2, r.y1)
+	return l * w
+   }
+
+   // Embedded types
+   type Person struct {
+	Name string
+   }
+
+   func (p *Person) Talk() string {
+	fmt.Println("Hi, my name is ", p.Name);
+	return p.Name;
+
+   }
+
+   // we need to create a new android
+   type Android struct {
+	Person
+	Model string
+   }
+
+   // Interfaces
+   type Shape interface {
+	area() float64
+   }
 
 
 
@@ -145,8 +182,24 @@ func _circleArea(c Circle) float64 {
 
 func main () {
 
-	// used pointer to find area of circle - pointer implementation
+	// acess embedded types
+	_a := new(Android)
+	_a.Person.Talk();
+
+	//But we can also call any Person methods directly on the Android:
+	__a := new(Android)
+	__a.Talk();
+
+	// Used method to calculate area of a rectangle
+	r := Rectangle{0, 0, 10, 10}
+	fmt.Println("Used method to find area of a rectangle =>",r.area())
+
 	c := Circle{0, 0, 5}
+	// used method to find the area of a circle
+	fmt.Println("Used method to find area of a circle =>",c.area())
+
+	// used pointer to find area of circle - pointer implementation
+	
 	fmt.Println("Used best way - pointer got find area of a circle =>",__circleArea(&c))
 
 	_c := Circle {0, 0, 5}
@@ -157,8 +210,8 @@ func main () {
 	var rx2, ry2 float64 = 10, 10
 	var cx, cy, cr float64 = 0, 0, 5
 
-	fmt.Println("Reactangle area = ",rectangleArea(rx1, ry1, rx2,ry2))
-	fmt.Println("Circle area = ",circleArea(cx, cy, cr))
+	fmt.Println("Rectangle area - tidious way => ",rectangleArea(rx1, ry1, rx2,ry2))
+	fmt.Println("Circle area - tidious way => ",circleArea(cx, cy, cr))
 
 	/*
 	* The above approach to solve the problem is tedious  - let's implement the use of structs and interfaces to make things easy
