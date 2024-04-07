@@ -271,6 +271,9 @@ ch_ := make(chan int, 1);
 
 func main () {
 
+	x_s := []float64{1,2,3,4}
+	avg := m.Average(x_s);
+	
 	// select statement in channels
 	c1 := make(chan string)
 	c2 := make(chan string)

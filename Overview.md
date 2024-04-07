@@ -156,3 +156,7 @@ full._
 
 **`select`**
 Go has a special statement `select` that works like switch but for channels
+
+`Packages`
+
+Inside packages, functions are started with a capital letter. This is to tell that other packages are able to see it.
