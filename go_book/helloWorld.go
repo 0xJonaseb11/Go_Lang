@@ -2,7 +2,35 @@ package main
 
 import "fmt";
 
+func average(xs []float64) float64 {
+	// panic("Not implemented"); // built-in function to cause runtime-Error
+
+	total := 0.0;
+	for _, v := range xs {
+		total += v;
+	}
+	return total / float64(len(xs));
+}
+
+// can also return multiple values
+func f () (int, int) {
+	
+	return 5,6;
+}
+
 func main () {
+
+	// handle error
+	x, err := f())
+	// handle success
+	x, ok := f())
+
+	x_, y_ := f();
+	fmt.Println("x_ is: ", x_ ,"and y_ is: ", y_);
+
+	xs := [] float64 {12,345,56,78,23}
+	fmt.Println("The average of xs is: ", average(xs));
+
 	fmt.Println("Hello world");
 
 	// numbers
@@ -182,21 +210,91 @@ func main () {
 
 	// copy - copies content of slice1 into slice2
 	slice1_ := []int{1,2,3}
-	slice2_ := make([]int, 3)
+	slice2_ := make([]int, 3) // 3 is the length of slice
 	copy(slice2_, slice1_)
 	fmt.Println("Before copying slice1 into slice2:", slice1_, "After copying slice1", slice2_);
 
 	// Maps
-	var map map[string]int
+	// var mapped map[string]int
+	mapped_ := make(map[string]int)
+	mapped_["key"] = 10
+	fmt.Println(mapped_["key"])
 
+	// delete an element with built-in delete() method
+	delete(mapped_, "key");
+	fmt.Println(mapped_["key"]) // outputs 0 to indicate deletion
 
-	
-	
-	
+	// example program
+	elements := make(map[string]string);
+	elements["H"] = "Hydrogen";
+	elements["He"] = "Helium"
+	elements["Li"] = "Lithium"
+	elements["Be"] = "Beryllium"
+	elements["B"] = "Boron"
+	elements["C"] = "Carbon"
+	elements["N"] = "Nitrogen"
+	elements["O"] = "Oxygen"
+	elements["F"] = "Fluorine"
+	elements["Ne"] = "Neon"
 
+	fmt.Println(elements["He"]); // outputs Helium
 
+	// check for zero value - usual way
+	fmt.Println(elements["Un"] == "");// outputs true indicating it doesn't exist
+	fmt.Println(elements["H"] == ""); // outputs false - indicating it exists
 
+	// check for zero value - Go way
+	if name, ok := elements["Un"]; ok {
+		fmt.Println(name, ok);
+	}
 
+	// make our program complex - add room temps
+	elements_ := map[string] map[string] string {
+		"H" : map[string] string {
+			"name": "Hydrogen",
+			"state": "gas",
+		},
+		"He": map[string] string {
+			"name": "Helium",
+			"state": "gas",
+		},
+		"Li": map[string] string {
+			"name": "Lithium",
+			"state": "gas",
+		} ,
+		"Be": map[string] string {
+			"name": "Beryllium",
+			"state": "solid",
+		},
+		"B": map[string] string {
+			"name": "Boron",
+			"state": "solid",
+		} ,
+		"C": map[string] string {
+			"name": "Carbon",
+			"state": "solid",
+		},
+		"N": map[string] string {
+			"name": "Nitrogen",
+			"state": "gas",
+		} ,
+		"O": map[string] string {
+			"name": "Oxygen",
+			"state": "gas",
+		},
+		"F": map[string] string {
+			"name": "Fluorine",
+			"state": "gas",
+		} ,
+		"Ne": map[string] string {
+			"name": "Neon",
+			"state": "gas",
+		},
+	}
+
+	if el, ok := elements_["Li"]; ok {
+		fmt.Println("Selected element", el["name"], "of state", el["state"]);
+	}
 
 }
 
@@ -212,4 +310,21 @@ func prompt() {
 	output := input * 2;
 
 	fmt.Println("Output:\n", output);
+}
+
+func elements() {
+	elements := make(map[string]string);
+	elements["He"] = "Hydrogen";
+	elements["He"] = "Helium"
+	elements["Li"] = "Lithium"
+	elements["Be"] = "Beryllium"
+	elements["B"] = "Boron"
+	elements["C"] = "Carbon"
+	elements["N"] = "Nitrogen"
+	elements["O"] = "Oxygen"
+	elements["F"] = "Fluorine"
+	elements["Ne"] = "Neon"
+
+	fmt.Println(elements["He"]);
+
 }
