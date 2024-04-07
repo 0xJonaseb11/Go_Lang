@@ -18,13 +18,54 @@ func f () (int, int) {
 	return 5,6;
 }
 
+// Variadic functions
+/*
+*By using ... before the type name of the last parame-
+ter you can indicate that it takes zero or more of those
+parameters. In this case we take zero or more ints.
+*/
+
+func add(args ...int) int {
+	total := 0;
+
+	for _, v := range args {
+		total += v;
+	}
+
+	return total
+}
+
+
+
+
 func main () {
 
-	// handle error
-	x, err := f())
-	// handle success
-	x, ok := f())
+	/** Closure
+    * It is possible to create functions inside of functions
+    */
 
+	add_ := func(x, y int) int {
+		return x + y;
+	}
+	fmt.Println("Using closure to add we get", add_(12,12));
+
+
+	// implementing variadic funcns with interface{}
+	// fmt.Println(a ...interface{} ) (n int, err error )
+
+	// applying variadic funcns logic ot slices too
+	xs_ := []int{1,2,3,4,}
+	fmt.Println("Variadically added slice xs_ :=",add(xs_...))
+
+	// add - variadic
+	fmt.Println("Using Variadic funcn to add := ", add(1,2,3,4,5));
+	// add();
+/*
+	// handle error
+	(x, err := f())
+	// handle success
+	(x, ok := f())
+*/
 	x_, y_ := f();
 	fmt.Println("x_ is: ", x_ ,"and y_ is: ", y_);
 
