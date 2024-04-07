@@ -1,6 +1,6 @@
 package main
 
-import "fmt";
+import ("fmt"; "math");
 
 func average(xs []float64) float64 {
 	// panic("Not implemented"); // built-in function to cause runtime-Error
@@ -70,12 +70,129 @@ func second () {
 	fmt.Println("2nd")
 }
 
+// Pointers
+func zero(_xptr *int) {
+	*_xptr = 0
+}
+
+func one(xptr *int) {
+	*xptr = 1;
+}
+
+func square(x__ *float64) {
+	*x__ = *x__ * *x__;
+}
+
+// structs and interfaces
+func distance(x1, y1, x2, y2 float64) float64 {
+	a := x2 - x1
+	b := y2 - y1
+	return math.Sqrt(a*a + b*b)
+	}
+
+	func rectangleArea(x1, y1, x2, y2 float64)float64 {
+	l := distance(x1, y1, x1, y2)
+	w := distance(x1, y1, x2, y1)
+	return l * w
+	}
+
+func circleArea(x, y, r float64) float64 {
+	return math.Pi * r*r;
+}
+
+
+type Circle struct {
+	x, y, r float64;
+}
+
+//initialization
+var c Circle;
+// use new function to initialize too
+var c_ = new(Circle);
+// let's try to give it value
+var  _c = Circle{ x: 0, y: 0, r: 5 }
+/*Or we can leave off the field names if we know the or-
+* der they were defined:
+*/
+var __c = Circle{0, 0, 5}
+
+
+   // Let's modify `circleArea` function so that it uses a Circle:
+  
+
+func _circleArea(c Circle) float64 {
+	return math.Pi * c.r*c.r;
+   }
+   /*
+   *keep in mind that arguments are always copied in GO, so if you modify a variable above, it is not entirely modified in a program
+   * So to solve that, we'll use pointer  
+   */
+
+   func __circleArea(c *Circle) float64{
+	return math.Pi * c.r*c.r;
+
+   }
+
+   // Methods
+   /*
+   * We have made our program better, but why not make it best with methods
+   */
+
 
 
 
 
 
 func main () {
+
+	// used pointer to find area of circle - pointer implementation
+	c := Circle{0, 0, 5}
+	fmt.Println("Used best way - pointer got find area of a circle =>",__circleArea(&c))
+
+	_c := Circle {0, 0, 5}
+	fmt.Println("Used structs to find area of a circle - Unefficient way =>",_circleArea(_c))
+
+	// distance, rectangleArea && circleArea
+	var rx1, ry1 float64 = 0, 0
+	var rx2, ry2 float64 = 10, 10
+	var cx, cy, cr float64 = 0, 0, 5
+
+	fmt.Println("Reactangle area = ",rectangleArea(rx1, ry1, rx2,ry2))
+	fmt.Println("Circle area = ",circleArea(cx, cy, cr))
+
+	/*
+	* The above approach to solve the problem is tedious  - let's implement the use of structs and interfaces to make things easy
+	*
+	* Structs
+	* See above - implementation logic
+	*/
+	
+// Fields
+   /*We can access fields with the `.` operator*/
+   fmt.Println(c.x, c.y, c.r);
+   c.x = 10
+   c.y = 5
+   c.r = 1
+
+
+   
+
+
+	/*
+	x__ := 1.5
+	fmt.Println(square(&x__))
+	*/
+
+	// new
+	xptr := new(int)
+	one(xptr)
+	fmt.Println(*xptr);
+
+	// pointers
+	_xptr := 5
+	zero(&_xptr);
+	fmt.Println(_xptr) // 0
+
 
 	// defer
 	// let's open and close a file with defer
@@ -206,10 +323,10 @@ func main () {
 	var (
 		a = 1
 		b = 2
-		c = 3
+		cc = 3
 		d = 4
 	)
-	fmt.Println(a,b,c,d);
+	fmt.Println(a,b,cc,d);
 
 	// getting user input
 	fmt.Println("Please enter a number:\n");
