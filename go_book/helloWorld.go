@@ -35,10 +35,95 @@ func add(args ...int) int {
 	return total
 }
 
+// generate evene numbers - closure
+func makeEvenGenerator() func () uint {
+	i := uint(0)
+	return func() (ret uint) {
+	ret = i
+	i += 2
+	return
+	}
+}
+
+// Recursion
+
+func factorial(fact uint) uint {
+	if fact == 0 {
+		return 1
+	}
+	return fact * factorial(fact-1);
+	
+}
+
+// Defer, Panic and Recover
+/*
+* Defer if a special statement that schedules a funcition call to run after function completes
+* It is often used to when resources need to be freed in some way. forexample
+* when we open a file we need to make sure it is closed later.
+*/
+
+func first () {
+	fmt.Println("1st")
+}
+
+func second () {
+	fmt.Println("2nd")
+}
+
+
+
 
 
 
 func main () {
+
+	// defer
+	// let's open and close a file with defer
+	// f, _ := os.Open(filename)
+	// defer f.Close()
+
+	// Panic && recover 
+	/* Panic() instantly causes runtime error 
+	* Recover() is used to handle the runtime error caused by panic() 
+	*/
+
+	/*
+	panic("PANIC")
+	str := recover();
+	fmt.Println(str)
+
+	// to get call recovered, we have to pair it with defer
+	defer func() {
+		str := recover();
+		fmt.Println(str)
+	} ()
+	panic("PANIC")
+
+	*/
+
+	defer second(); // waits for first
+	first(); // executes first
+
+	// it does like this - difference comes to durations
+	first();
+	second();
+
+	// generate even numbers
+	nextEven := makeEvenGenerator();
+	fmt.Println("EvenGenerator -: ")
+	fmt.Println(nextEven()); // 0
+	fmt.Println(nextEven()); // 2
+	fmt.Println(nextEven()); // 4
+
+	n := 0
+	increment := func () int {
+		n++
+		return n;
+	}
+	fmt.Println("\nIncrement count -:")
+	fmt.Println(increment()); // 1
+	fmt.Println(increment()); // 2
+	fmt.Println(increment()); // 3
 
 	/** Closure
     * It is possible to create functions inside of functions
